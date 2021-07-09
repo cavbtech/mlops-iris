@@ -19,6 +19,13 @@ class QueryIn(BaseModel):
 class QueryOut(BaseModel):
     flower_class: str
 
+class FeedbackIn(BaseModel):
+    sepal_length: float
+    sepal_width: float
+    petal_length: float
+    petal_width: float
+    flower_class:int
+
 
 @app.get("/ping")
 def ping():
@@ -26,11 +33,21 @@ def ping():
 
 
 @app.post("/predict_flower", response_model=QueryOut, status_code=200)
-def predict_flower(
-    query_data: QueryIn
-):
+def predict_flower( query_data: QueryIn):
     output = {'flower_class': predict(query_data)}
     return output
 
+
+## added this from session and there is no response here except string
+# @app.post("/feedback_loop", status_code=200)
+# def feedback_loop( data:list[FeedbackIn]):
+#     retrain(data)
+#     return {"detail": "Feed back loop successful"}
+
+# @app.post("/feedback_single_data", status_code=200)
+# def feedback_single_data( data:FeedbackIn):
+#     retrain_single(data)
+#     return {"detail": "Feed single data successful"}
+
 if __name__ == "__main__":
-    uvicorn.run("main:app", host='0.0.0.0', port=8888, reload=True)
+    uvicorn.run("main:app", host='127.0.0.1', port=8888, reload=True)
