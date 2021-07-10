@@ -22,7 +22,7 @@ def test_pred_virginica():
         flower_result = response.json()['flower_class']
         assert response.status_code == 200
         assert flower_result == "Iris Virginica"
-
+#testing versiocolor
 def test_pred_versiocolor():
     payload = {
       "sepal_length": 7.0,
